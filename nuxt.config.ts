@@ -3,7 +3,7 @@ import legacy from '@vitejs/plugin-legacy';
 const env = import.meta.env;
 
 const getScript = () => {
-  return env.ALLIANCE_ENV !== 'prod' && env.ALLIANCE_ENV !== 'dev'
+  return env.NUXT_ENV !== 'prod' && env.NUXT_ENV !== 'dev'
     ? [
         {
           src: '/js/common/vconsole.min.js',
@@ -15,7 +15,6 @@ const getScript = () => {
 };
 
 export default defineNuxtConfig({
-  ssr: false,
   app: {
     baseURL: '/',
     head: {
@@ -33,9 +32,6 @@ export default defineNuxtConfig({
     host: '0.0.0.0',
   },
   vite: {
-    server: {
-      proxy: {},
-    },
     plugins: [legacy({})],
   },
   postcss: {
@@ -45,5 +41,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  build: {},
+  runtimeConfig: {
+    databaseUrl: '',
+  },
 });
