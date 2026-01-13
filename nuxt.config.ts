@@ -14,6 +14,14 @@ const getScript = () => {
     : [];
 };
 
+const getVitePlugins = () => {
+  const plugins = [];
+  if (env.NUXT_ENV !== 'dev') {
+    plugins.push(legacy());
+  }
+  return plugins;
+};
+
 export default defineNuxtConfig({
   app: {
     baseURL: '/',
@@ -32,13 +40,22 @@ export default defineNuxtConfig({
     host: '0.0.0.0',
   },
   vite: {
-    plugins: [legacy({})],
+    plugins: getVitePlugins(),
   },
   postcss: {
     plugins: {
+      autoprefixer: {},
       'postcss-import': {},
       '@tailwindcss/postcss': {},
-      autoprefixer: {},
+      'postcss-pxtorem': {
+        rootValue: 100,
+        propList: ['*'],
+        selectorBlackList: ['.norem-'],
+        exclude: (file: string) => {
+          const paths = ['/node_modules\\/vant/'];
+          return paths.some((path) => new RegExp(path).test(file));
+        },
+      },
     },
   },
   runtimeConfig: {

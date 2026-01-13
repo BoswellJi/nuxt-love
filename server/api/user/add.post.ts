@@ -1,11 +1,12 @@
-import User from '../../models/User';
+import { UserService } from '../../services/UserService';
+import { CreateUserSchema } from '../../schemas/user.schema';
 
 export default defineEventHandler(async (e) => {
   try {
+    const service = new UserService();
     const body = await readBody(e);
-    const users = await User.create({
-      name: body.name,
-    });
+    const validated = CreateUserSchema.parse(body);
+    const users = await service.createUser(body.name);
     return {
       success: true,
       data: users,

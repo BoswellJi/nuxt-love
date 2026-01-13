@@ -1,6 +1,6 @@
 <template>
   <div class="login-page">
-    <h1 class="text-[red] transform">Login Page</h1>
+    <h1 class="text-[red] transform text-[20px]">Login Page</h1>
     <el-button type="primary" @click="loginHandle">Login</el-button>
   </div>
 </template>
@@ -15,3 +15,8 @@ const loginHandle = async () => {
   console.log('User added:', res);
 };
 </script>
+<style scoped>
+.login-page {
+  padding: 20px;
+}
+</style>
