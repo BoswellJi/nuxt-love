@@ -1,6 +1,14 @@
 import legacy from '@vitejs/plugin-legacy';
 
+enum PageType {
+  MOBILE = 'mobile',
+  PC = 'pc',
+}
+
 const env = import.meta.env;
+const config = {
+  pageType: PageType.MOBILE,
+};
 
 const getScript = () => {
   return env.NUXT_ENV !== 'prod' && env.NUXT_ENV !== 'dev'
@@ -22,6 +30,26 @@ const getVitePlugins = () => {
   return plugins;
 };
 
+const getPostcssPlugins = () => {
+  if (config.pageType === PageType.MOBILE) {
+    return [
+      {
+        'postcss-pxtorem': {
+          rootValue: 100,
+          propList: ['*'],
+          selectorBlackList: ['.norem-'],
+          exclude: (file: string) => {
+            const paths = ['/node_modules\\/vant/'];
+            return paths.some((path) => new RegExp(path).test(file));
+          },
+        },
+      },
+    ];
+  } else {
+    return [];
+  }
+};
+
 export default defineNuxtConfig({
   app: {
     baseURL: '/',
@@ -31,7 +59,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: false },
-  modules: ['@element-plus/nuxt', '@vant/nuxt', '@nuxt/eslint'],
+  modules: ['@element-plus/nuxt', '@vant/nuxt', '@nuxt/eslint', '@pinia/nuxt'],
   vant: {
     lazyload: true,
   },
@@ -47,15 +75,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
       'postcss-import': {},
       '@tailwindcss/postcss': {},
-      'postcss-pxtorem': {
-        rootValue: 100,
-        propList: ['*'],
-        selectorBlackList: ['.norem-'],
-        exclude: (file: string) => {
-          const paths = ['/node_modules\\/vant/'];
-          return paths.some((path) => new RegExp(path).test(file));
-        },
-      },
+      ...getPostcssPlugins(),
     },
   },
   runtimeConfig: {

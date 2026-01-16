@@ -5,7 +5,7 @@
       "name": "nuxt Debug",
       "request": "launch",
       "runtimeArgs": ["nuxt", "dev"],
-      "runtimeExecutable": "yarn",
+      "runtimeExecutable": "pnpm",
       "skipFiles": ["<node_internals>/**"],
       "env": {
         "NODE_ENV": "development"
