@@ -1,4 +1,3 @@
-// server/services/UserService.ts
 import { UserRepository } from '../repositories/UserRepository';
 
 export class UserService {
@@ -15,7 +14,6 @@ export class UserService {
   }
 
   async createUser(name: string) {
-    // 业务逻辑：验证、规范化
     if (!name || name.length < 2) {
       throw new Error('用户名至少2个字符');
     }

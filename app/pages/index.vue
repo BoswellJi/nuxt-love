@@ -1,8 +1,9 @@
-<template>
-  <div class="min-h-screen">
-    <HeroSection />
-    <TimelineSection />
-  </div>
-</template>
+<script setup>
+const triggerError = () => {
+  throw new Error('Nuxt Button Error');
+};
+</script>
 
-<script setup lang="ts"></script>
+<template>
+  <button id="errorBtn" @click="triggerError">Trigger Error</button>
+</template>
