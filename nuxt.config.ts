@@ -64,7 +64,7 @@ const getMeta = () => {
 };
 
 const getModules = () => {
-  const modules = ['@nuxt/eslint', '@pinia/nuxt', '@sentry/nuxt/module', '@nuxt/content'];
+  const modules = ['@nuxt/eslint', '@pinia/nuxt', '@sentry/nuxt/module'];
 
   if (PageType.MOBILE === config.pageType) {
     modules.push('@vant/nuxt');
@@ -127,6 +127,6 @@ export default defineNuxtConfig({
     plugins: getPostCssPlugins(),
   },
   runtimeConfig: {
-    databaseUrl: '',
+    proxyTarget: '',
   },
 });
