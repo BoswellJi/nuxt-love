@@ -17,9 +17,10 @@ export function $fetchSelf<T>(
   return new Promise((resolve, reject) => {
     $fetch(url, {
       ...optionsSelf,
+      baseURL: '/api/proxy',
       method: method,
       headers: options?.headers,
-      timeout: 100,
+      timeout: 10000,
       retry: 3,
       onRequest({ request, options }: any) {
         options.headers.token = 'test';
