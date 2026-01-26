@@ -5,6 +5,10 @@ enum PageType {
   PC = 'pc',
 }
 
+const config = {
+  pageType: PageType.MOBILE,
+};
+
 enum EnvType {
   DEV = 'dev',
   QA = 'qa',
@@ -13,9 +17,6 @@ enum EnvType {
 }
 
 const env = import.meta.env;
-const config = {
-  pageType: PageType.MOBILE,
-};
 
 const getScript = () => {
   const scripts = [];

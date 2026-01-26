@@ -1,75 +1,23 @@
-# Nuxt Minimal Starter
+# 基于Nuxt的C端应用模板
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## 介绍
 
-## Setup
+这是一个使用Nuxt框架构建的C端应用模板，集成了多种常用功能和最佳实践，旨在帮助开发者快速启动和构建现代Web应用。
 
-Make sure to install dependencies:
+## 功能特点
 
-```bash
-# npm
-npm install
+### 基于Nuxt 4的服务端渲染（SSR）
 
-# pnpm
-pnpm install
+传统的服务端渲染应用做法大多都是多页架构的。单页架构的应用大多都是以客户端为主的渲染方式。Nuxt 4结合了两者的优点，既能享受单页应用的流畅体验，又能利用服务端渲染提升首屏加载速度和SEO效果。
 
-# yarn
-yarn install
+### 支持移动端自适应开发
 
-# bun
-bun install
-```
+通过在工具链中集成pxtorem插件，页面元标签配置viewport, 监听屏幕大小改变根标签字体大小，实现移动端自适应布局，提升用户体验。
 
-## Development Server
+### 集成UI组件库
 
-Start the development server on `http://localhost:3000`:
+集成了流行的UI组件库（如Vant UI,Element Plus UI），提供丰富的预设组件，帮助开发者快速构建美观且一致的用户界面。
 
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- 集成Sentry进行错误监控和性能追踪
+- 全局路由中间件支持
+- 类型增强，支持全局类型声明
