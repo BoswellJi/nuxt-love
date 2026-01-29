@@ -96,6 +96,9 @@ const getPostCssPlugins = () => {
       propList: ['*'],
       selectorBlackList: ['html', 'body'],
       minPixelValue: 1,
+      exclude: (file: string) => {
+        return file.indexOf('error.vue') !== -1;
+      },
     };
   }
   return plugins;
