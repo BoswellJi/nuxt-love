@@ -108,8 +108,10 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/',
     head: {
+      title: 'xxx',
       script: getScript(),
       meta: getMeta(),
+      link: [{ rel: 'stylesheet', href: '/css/common/modern-normalize.css' }],
     },
   },
   compatibilityDate: '2025-05-15',

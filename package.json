@@ -26,6 +26,7 @@
     "dayjs": "^1.11.19",
     "element-plus": "^2.10.5",
     "lodash": "^4.17.21",
+    "modern-normalize": "^3.0.1",
     "nuxt": "^4.3.0",
     "pinia": "^3.0.4",
     "vant": "^4.9.21",
