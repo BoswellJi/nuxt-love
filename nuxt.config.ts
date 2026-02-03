@@ -19,7 +19,10 @@ enum EnvType {
 const env = import.meta.env;
 
 const getScript = () => {
-  const scripts = [];
+  const scripts: any = [
+    { src: 'https://vstlog.17usoft.com/vst.ashx', type: 'text/javascript' },
+    { src: '/js/common/track.js', type: 'text/javascript' },
+  ];
   if (env.NUXT_ENV !== EnvType.PROD && env.NUXT_ENV !== EnvType.DEV) {
     if (config.pageType === PageType.MOBILE) {
       scripts.push(

@@ -111,7 +111,7 @@ const errorConfig = computed(() => {
 }
 
 .card h1 {
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-size: 18px;
   margin: 0;
 }
 
@@ -119,7 +119,7 @@ const errorConfig = computed(() => {
   color: #e2e8f0;
   margin: 0;
   line-height: 1.5;
-  font-size: 1rem;
+  font-size: 18px;
 }
 
 .cta-group {
@@ -133,8 +133,8 @@ const errorConfig = computed(() => {
   border: none;
   border-radius: 999px;
   font-weight: 600;
-  padding: 0.85rem 1.4rem;
-  font-size: 1rem;
+  padding: 10px;
+  font-size: 18px;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -157,7 +157,7 @@ const errorConfig = computed(() => {
 }
 
 .detail {
-  font-size: 0.85rem;
+  font-size: 18px;
   color: #94a3b8;
   margin-top: 0.5rem;
 }
@@ -167,7 +167,7 @@ footer {
   z-index: 1;
   margin-top: 2rem;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 18px;
   color: rgba(148, 163, 184, 0.9);
 }
 

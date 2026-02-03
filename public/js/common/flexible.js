@@ -1,12 +1,12 @@
 (function flexible(window, document) {
-  const docEl = document.documentElement;
+  var docEl = document.documentElement;
 
-  const designWidth = 375;
-  const baseFontSize = 37.5;
+  var designWidth = 375;
+  var baseFontSize = 37.5;
 
   function setRemUnit() {
-    const screenWidth = Math.min(docEl.clientWidth, window.innerWidth);
-    const rem = (screenWidth / designWidth) * baseFontSize;
+    var screenWidth = Math.min(docEl.clientWidth, window.innerWidth);
+    var rem = (screenWidth / designWidth) * baseFontSize;
     docEl.style.fontSize = `${Math.min(rem, 75)}px`;
   }
 
