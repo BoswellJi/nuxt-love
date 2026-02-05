@@ -1,4 +1,4 @@
-# 基于Nuxt的C端应用模板
+# 基于Nuxt的C端应用脚手架
 
 ## 介绍
 
@@ -6,12 +6,14 @@
 
 ## 特性
 
-- 基于Nuxt 4的服务端渲染（SSR）
+### 前端
+
+- 基于Nuxt的服务端渲染
 - 兼容性处理，支持旧版浏览器
 - 支持移动端自适应开发
 - 集成Tailwind CSS
 - 环境变量配置，支持多环境切换
-- 集成UI组件库（如Vant UI,Element Plus UI）
+- 集成UI组件库，如Vant UI,Element Plus UI
 - 集成Pinia状态管理
 - 集成VConsole移动端调试工具
 - 集成Sentry进行错误监控和性能追踪
@@ -20,8 +22,18 @@
 - 错误展示页面
 - 集成图片验证码组件
 - 集成轨迹数据收集
-- 代理服务端接口，解决跨域问题
 - 封装请求库、图片工具库、数学工具库和正则工具库
+
+### 后端
+
+- 代理服务端接口，解决跨域问题
+- 集成Sequlize ORM，进行数据库开发
+- 集成Sentry进行错误监控和性能追踪
+
+### 工具
+
+- eslint代码规范检查和prettier代码格式化
+- 集成nuxt 的 agent-skills 模块
 
 ## 架构设计
 
@@ -48,8 +60,6 @@
 ### 环境变量配置
 
 通过环境变量区分不同的运行环境（开发、qa、测试、生产），实现配置的灵活管理和切换，提升应用的可维护性。
-
-### eslint代码规范检查和prettier代码格式化
 
 ## 框架运行时层
 
@@ -117,8 +127,78 @@
 
 集成nuxt 的 agent-skills 模块，实现自动化的内容生成和交互功能，提升用户体验和应用的智能化水平。
 
-### 三方依赖
+## 三方依赖
 
 - lodash: 提供实用的JavaScript工具函数，简化数据处理和操作流程。
 - dayjs: 轻量级的日期处理库，简化日期和时间的操作和格式化。
 - zod: 强大的数据验证和解析库，提升数据的类型安全性和可靠性。
+
+## 工具
+
+### eslint代码规范检查和prettier代码格式化
+
+## 目录结构
+
+```text
+nuxt/
+├─ app/                              # 前端应用（Nuxt App）
+│  ├─ error.vue                      # 全局错误页
+│  ├─ assets/                        # 静态资源（参与构建）
+│  │  ├─ css/
+│  │  │  └─ main.css
+│  │  ├─ img/
+│  │  └─ js/
+│  ├─ components/
+│  │  └─ recaptcha.vue               # 图片验证码组件
+│  ├─ composables/                   # 组合式函数（hooks）
+│  ├─ constants/                     # 常量定义
+│  ├─ middleware/
+│  │  └─ auth.ts                     # 前端路由守卫
+│  ├─ pages/                         # 页面路由
+│  │  ├─ index.vue
+│  │  ├─ about.vue
+│  │  └─ user.vue
+│  ├─ plugins/
+│  │  └─ error-handler.ts            # 前端错误处理插件
+│  ├─ stores/
+│  │  └─ user.ts                     # Pinia store
+│  ├─ types/
+│  │  └─ global.d.ts                 # 全局类型补充
+│  └─ utils/                         # 工具库
+│     ├─ image.ts
+│     ├─ math.ts
+│     ├─ request.ts
+│     ├─ storage.ts
+│     └─ validator.ts
+├─ server/                           # Nitro Server（服务端逻辑）
+│  ├─ api/
+│  │  └─ proxy/
+│  │     └─ [...].ts                 # 代理转发入口（解决跨域/统一网关）
+│  └─ middleware/
+│     └─ error.ts                    # 服务端错误中间件
+├─ public/                           # 纯静态资源（原样输出）
+│  ├─ css/
+│  │  └─ common/
+│  │     └─ modern-normalize.css
+│  └─ js/
+│     └─ common/
+│        ├─ flexible.js              # rem 适配脚本
+│        ├─ track.js                 # 轨迹/埋点脚本
+│        └─ vconsole.min.js          # 移动端调试
+├─ modules/
+│  └─ fixViteLegacyPlugin.ts         # 构建层：legacy 兼容处理
+├─ doc/
+│  ├─ Sequelize.md
+│  └─ 基于Nuxt的C端应用脚手架.md
+├─ .env.dev                          # 多环境配置
+├─ .env.qa
+├─ .env.stage
+├─ .env.prod
+├─ eslint.config.ts
+├─ nuxt.config.ts
+├─ tsconfig.json
+├─ sentry.client.config.ts
+├─ sentry.server.config.ts
+├─ package.json
+└─ package-lock.json
+```
