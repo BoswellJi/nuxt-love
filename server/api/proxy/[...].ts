@@ -49,7 +49,6 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // Strip hop-by-hop headers (RFC 7230) + any header names declared in `Connection`.
   const connectionTokens = parseConnectionTokens(headers.connection);
   const hopByHop = new Set([
     'connection',
@@ -66,11 +65,9 @@ export default defineEventHandler(async (event) => {
     delete headers[name];
   }
 
-  // Let undici/fetch manage these for the upstream request.
   delete headers['content-length'];
   delete headers['accept-encoding'];
 
-  // Forwarding metadata for upstream.
   headers['x-forwarded-host'] = incomingUrl.host;
   headers['x-forwarded-proto'] = incomingUrl.protocol.replace(':', '');
   headers['x-forwarded-prefix'] = '/api/proxy';

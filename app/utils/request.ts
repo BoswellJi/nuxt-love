@@ -21,6 +21,7 @@ export interface RequestOptions {
 export function useRequest<T = any>(
   url: string,
   options?: RequestOptions & { method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' },
+  baseURL?: string,
 ) {
   const {
     method = 'GET',
@@ -32,7 +33,7 @@ export function useRequest<T = any>(
   } = options || {};
 
   return $fetch<T>(url, {
-    baseURL: '/api/proxy',
+    baseURL: baseURL || '/',
     method,
     headers: {
       ...headers,
@@ -108,29 +109,33 @@ export function useRequest<T = any>(
 /**
  * GET 请求
  */
-export function get<T = any>(url: string, options?: RequestOptions) {
-  return useRequest<T>(url, { ...options, method: 'GET' });
+export function proxyGet<T = any>(url: string, options?: RequestOptions) {
+  return useRequest<T>(url, { ...options, method: 'GET' }, '/api/proxy');
 }
 
 /**
  * POST 请求
  */
-export function post<T = any>(url: string, params?: Record<string, any>, options?: RequestOptions) {
-  return useRequest<T>(url, { ...options, params, method: 'POST' });
+export function proxyPost<T = any>(
+  url: string,
+  params?: Record<string, any>,
+  options?: RequestOptions,
+) {
+  return useRequest<T>(url, { ...options, params, method: 'POST' }, '/api/proxy');
 }
 
 /**
  * PUT 请求
  */
-export function put<T = any>(url: string, params?: Record<string, any>, options?: RequestOptions) {
-  return useRequest<T>(url, { ...options, params, method: 'PUT' });
+export function get<T = any>(url: string, params?: Record<string, any>, options?: RequestOptions) {
+  return useRequest<T>(url, { ...options, params, method: 'GET' });
 }
 
 /**
  * DELETE 请求
  */
-export function del<T = any>(url: string, params?: Record<string, any>, options?: RequestOptions) {
-  return useRequest<T>(url, { ...options, params, method: 'DELETE' });
+export function post<T = any>(url: string, params?: Record<string, any>, options?: RequestOptions) {
+  return useRequest<T>(url, { ...options, params, method: 'POST' });
 }
 
 /**
@@ -183,7 +188,6 @@ function handleError(error: any, showError: boolean) {
   if (error.statusCode) {
     message = ERROR_MESSAGES[error.statusCode] || `请求失败 (${error.statusCode})`;
 
-    // 401 未授权，跳转到登录页
     if (error.statusCode === '401' && import.meta.client) {
       // 可以使用 navigateTo 或其他路由跳转方式
       // navigateTo('/login')
