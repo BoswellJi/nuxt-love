@@ -41,7 +41,7 @@ function createSequelize(databaseUrl: string) {
       acquire: 30000,
       idle: 10000,
     },
-    logging: process.env.NODE_ENV === 'development' ? console.log : false,
+    logging: false,
   });
 }
 
@@ -88,7 +88,7 @@ export async function ensureSequelizeConnected() {
   return globalThis.__sequelizeConnectPromise;
 }
 
-void ensureSequelizeConnected().catch((error) => {
+ensureSequelizeConnected().catch((error) => {
   console.error('💥 数据库初始化失败：', (error as Error).message);
 });
 

@@ -149,22 +149,6 @@ function getToken(): string {
   return '';
 }
 
-/**
- * 兼容旧的 API（向后兼容）
- * @deprecated 建议使用新的 useRequest、get、post 等方法
- */
-export function $fetchSelf<T>(
-  url: string,
-  method: 'get' | 'post',
-  options?: { headers?: Record<string, any>; data?: Record<string, any> },
-): Promise<T> {
-  return useRequest<T>(url, {
-    method: method.toUpperCase() as any,
-    headers: options?.headers,
-    params: options?.data,
-  });
-}
-
 // 错误码映射
 const ERROR_MESSAGES: Record<string, string> = {
   '401': '未授权，请重新登录',

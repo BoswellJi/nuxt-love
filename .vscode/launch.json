@@ -4,7 +4,7 @@
     {
       "name": "nuxt Debug",
       "request": "launch",
-      "runtimeArgs": ["nuxt", "dev"],
+      "runtimeArgs": ["nuxt", "dev","--dotenv",".env.dev"],
       "runtimeExecutable": "pnpm",
       "skipFiles": ["<node_internals>/**"],
       "env": {

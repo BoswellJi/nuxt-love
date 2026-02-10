@@ -68,7 +68,7 @@ const getMeta = () => {
 };
 
 const getModules = () => {
-  const modules = ['@nuxt/eslint', '@pinia/nuxt', '@sentry/nuxt/module'];
+  const modules = ['@nuxt/eslint', '@pinia/nuxt', '@sentry/nuxt/module', '@nuxthub/core'];
 
   if (PageType.MOBILE === config.pageType) {
     modules.push('@vant/nuxt');
@@ -117,10 +117,20 @@ export default defineNuxtConfig({
       link: [{ rel: 'stylesheet', href: '/css/common/modern-normalize.css' }],
     },
   },
+  sourcemap: {
+    client: true,
+    server: true,
+  },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: false },
   modules: getModules(),
   sentry: {},
+  hub: {
+    kv: {
+      driver: 'redis',
+      url: env.NUXT_REDIS_URL,
+    },
+  },
   vant: {
     lazyload: true,
   },
@@ -137,5 +147,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     proxyTarget: '',
+    databaseUrl: '',
+    redisUrl: '',
+    env: '',
+    appName: '',
+    logPath: '',
   },
 });
