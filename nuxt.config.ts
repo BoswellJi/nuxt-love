@@ -28,7 +28,7 @@ export default defineNuxtConfig({
   vant: {
     lazyload: true,
   },
-  css: ['./app/assets/css/main.css'],
+  css: ['~/assets/css/main.css'],
   devServer: {
     host: '0.0.0.0',
   },
