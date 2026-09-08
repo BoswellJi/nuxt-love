@@ -1684,11 +1684,15 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// 自动滚动功能
-(function() {
-  let isAutoScrolling = true;
-  let userInteracted = false;
-  let scrollInterval = null;
+// 自动滚动功能（在信封打开后启动）
+let isAutoScrolling = false;
+let userInteracted = false;
+let scrollInterval = null;
+
+function startAutoScroll() {
+  if (userInteracted) return;
+
+  isAutoScrolling = true;
 
   // 监听用户交互
   function handleUserInteraction() {
@@ -1710,39 +1714,30 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   document.addEventListener('wheel', handleUserInteraction, { once: true });
 
   // 自动滚动函数
-  function startAutoScroll() {
-    scrollInterval = setInterval(() => {
-      // 检查是否到达底部
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
+  scrollInterval = setInterval(() => {
+    // 检查是否到达底部
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
 
-      if (scrollTop + clientHeight >= scrollHeight - 10) {
-        // 到达底部，停止滚动
-        clearInterval(scrollInterval);
-        scrollInterval = null;
-        return;
-      }
-
-      // 检查是否被用户打断
-      if (!isAutoScrolling) {
-        clearInterval(scrollInterval);
-        scrollInterval = null;
-        return;
-      }
-
-      // 滚动 1px
-      window.scrollBy(0, 1);
-    }, 300); // 300ms 滚动 1px
-  }
-
-  // 延迟 2 秒后开始自动滚动
-  setTimeout(() => {
-    if (!userInteracted) {
-      startAutoScroll();
+    if (scrollTop + clientHeight >= scrollHeight - 10) {
+      // 到达底部，停止滚动
+      clearInterval(scrollInterval);
+      scrollInterval = null;
+      return;
     }
-  }, 2000);
-})();
+
+    // 检查是否被用户打断
+    if (!isAutoScrolling) {
+      clearInterval(scrollInterval);
+      scrollInterval = null;
+      return;
+    }
+
+    // 滚动 1px
+    window.scrollBy(0, 1);
+  }, 300); // 300ms 滚动 1px
+}
 
 // 粒子
 (function() {
@@ -1812,6 +1807,8 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     // 隐藏信封遮罩
     setTimeout(() => {
       overlay.classList.add('hidden');
+      // 信封打开后开始自动滚动
+      setTimeout(startAutoScroll, 1000);
     }, 1000);
   });
 
