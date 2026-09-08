@@ -953,80 +953,6 @@ body::before {
   transform: translateY(-60px);
 }
 
-/* 蝴蝶结装饰 */
-.bow-decoration {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 40px;
-  z-index: 10;
-  filter: drop-shadow(0 2px 4px rgba(212,165,116,0.3));
-}
-
-.bow-left, .bow-right {
-  position: absolute;
-  top: 5px;
-  width: 24px;
-  height: 20px;
-  background: linear-gradient(135deg, var(--rose-light), var(--rose));
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1);
-}
-
-.bow-left {
-  left: 2px;
-  transform: rotate(-15deg);
-}
-
-.bow-right {
-  right: 2px;
-  transform: rotate(15deg);
-}
-
-.bow-center {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 14px;
-  background: linear-gradient(180deg, var(--rose), var(--rose-light));
-  border-radius: 50%;
-  z-index: 2;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-}
-
-.bow-ribbon-left, .bow-ribbon-right {
-  position: absolute;
-  top: 22px;
-  width: 12px;
-  height: 18px;
-  background: linear-gradient(180deg, var(--rose), var(--rose-light));
-  border-radius: 0 0 50% 50%;
-}
-
-.bow-ribbon-left {
-  left: 18px;
-  transform: rotate(-10deg);
-}
-
-.bow-ribbon-right {
-  right: 18px;
-  transform: rotate(10deg);
-}
-
-/* 蝴蝶结动画 */
-@keyframes bowBounce {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.05); }
-}
-
-.envelope:hover .bow-decoration {
-  animation: bowBounce 1s ease-in-out infinite;
-}
-
 .letter-content {
   text-align: center;
 }
@@ -1293,14 +1219,6 @@ body::before {
       </div>
     </div>
     <div class="envelope-flap"></div>
-    <!-- 蝴蝶结装饰 -->
-    <div class="bow-decoration">
-      <div class="bow-left"></div>
-      <div class="bow-right"></div>
-      <div class="bow-center"></div>
-      <div class="bow-ribbon-left"></div>
-      <div class="bow-ribbon-right"></div>
-    </div>
   </div>
 </div>
 
