@@ -1538,6 +1538,12 @@ body::before {
     </div>
     <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
+      <div class="timeline-year">2026.05.24</div>
+      <div class="timeline-event">我们订婚啦</div>
+      <div class="timeline-desc">愿得一人心，白首不分离</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
       <div class="timeline-year">2026.06.01</div>
       <div class="timeline-event">领取结婚证</div>
       <div class="timeline-desc">从今天起，officially married!</div>
@@ -1677,6 +1683,66 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// 自动滚动功能
+(function() {
+  let isAutoScrolling = true;
+  let userInteracted = false;
+  let scrollInterval = null;
+
+  // 监听用户交互
+  function handleUserInteraction() {
+    if (!userInteracted) {
+      userInteracted = true;
+      isAutoScrolling = false;
+      if (scrollInterval) {
+        clearInterval(scrollInterval);
+        scrollInterval = null;
+      }
+    }
+  }
+
+  // 添加事件监听
+  document.addEventListener('touchstart', handleUserInteraction, { once: true });
+  document.addEventListener('touchmove', handleUserInteraction, { once: true });
+  document.addEventListener('mousedown', handleUserInteraction, { once: true });
+  document.addEventListener('keydown', handleUserInteraction, { once: true });
+  document.addEventListener('wheel', handleUserInteraction, { once: true });
+
+  // 自动滚动函数
+  function startAutoScroll() {
+    scrollInterval = setInterval(() => {
+      // 检查是否到达底部
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        // 到达底部，停止滚动
+        clearInterval(scrollInterval);
+        scrollInterval = null;
+        return;
+      }
+
+      // 检查是否被用户打断
+      if (!isAutoScrolling) {
+        clearInterval(scrollInterval);
+        scrollInterval = null;
+        return;
+      }
+
+      // 滚动 1px
+      window.scrollBy(0, 1);
+    }, 300); // 300ms 滚动 1px
+  }
+
+  // 延迟 2 秒后开始自动滚动
+  setTimeout(() => {
+    if (!userInteracted) {
+      startAutoScroll();
+    }
+  }, 2000);
+})();
 
 // 粒子
 (function() {
