@@ -1687,7 +1687,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 // 自动滚动功能（在信封打开后启动）
 let isAutoScrolling = false;
 let userInteracted = false;
-let scrollInterval = null;
+let scrollAnimationId = null;
 
 function startAutoScroll() {
   if (userInteracted) return;
@@ -1699,9 +1699,9 @@ function startAutoScroll() {
     if (!userInteracted) {
       userInteracted = true;
       isAutoScrolling = false;
-      if (scrollInterval) {
-        clearInterval(scrollInterval);
-        scrollInterval = null;
+      if (scrollAnimationId) {
+        cancelAnimationFrame(scrollAnimationId);
+        scrollAnimationId = null;
       }
     }
   }
@@ -1713,8 +1713,16 @@ function startAutoScroll() {
   document.addEventListener('keydown', handleUserInteraction, { once: true });
   document.addEventListener('wheel', handleUserInteraction, { once: true });
 
-  // 自动滚动函数
-  scrollInterval = setInterval(() => {
+  // 使用 requestAnimationFrame 实现平滑滚动
+  let lastScrollTime = 0;
+  const scrollDelay = 300; // 300ms 滚动一次
+
+  function smoothScroll(timestamp) {
+    if (!isAutoScrolling) {
+      scrollAnimationId = null;
+      return;
+    }
+
     // 检查是否到达底部
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight;
@@ -1722,21 +1730,20 @@ function startAutoScroll() {
 
     if (scrollTop + clientHeight >= scrollHeight - 10) {
       // 到达底部，停止滚动
-      clearInterval(scrollInterval);
-      scrollInterval = null;
+      scrollAnimationId = null;
       return;
     }
 
-    // 检查是否被用户打断
-    if (!isAutoScrolling) {
-      clearInterval(scrollInterval);
-      scrollInterval = null;
-      return;
+    // 控制滚动速度，每 300ms 滚动 1px
+    if (timestamp - lastScrollTime >= scrollDelay) {
+      window.scrollBy(0, 1);
+      lastScrollTime = timestamp;
     }
 
-    // 滚动 1px
-    window.scrollBy(0, 1);
-  }, 300); // 300ms 滚动 1px
+    scrollAnimationId = requestAnimationFrame(smoothScroll);
+  }
+
+  scrollAnimationId = requestAnimationFrame(smoothScroll);
 }
 
 // 粒子
